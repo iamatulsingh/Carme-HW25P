@@ -82,7 +82,7 @@ class HW25P(Peripheral):
             desc = self.getDescriptors(service.hndStart, service.hndEnd)
             d, = [d for d in desc if d.uuid == self.cccid]
 
-            self.writeCharacteristic(d.handle, b'\x01\00')
+            self.writeCharacteristic(d.handle, b'\x01\x00')
 
             def print_hr(cHandle, data):
                 self.hr_countdown = time.perf_counter()
@@ -101,7 +101,7 @@ class HW25P(Peripheral):
 
                 except KeyboardInterrupt:
                     self._log.info("HRM operation closed by user")
-                    self.writeCharacteristic(d.handle, b'\x00\00')
+                    self.writeCharacteristic(d.handle, b'\x00\x00')
                     break
 
         except BTLEException as btlE:
